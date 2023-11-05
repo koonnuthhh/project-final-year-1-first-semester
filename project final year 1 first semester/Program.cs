@@ -8,24 +8,27 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        //test of push
         bool g = true;
-        string n = null;
+        string n = null,reenternumber = "";
         while (g) 
         {
-            Console.WriteLine("Doraemon press 1\nGuess number press 2\nhangman press 3\nto stop press 4: ");
+            Console.Write("==========================================================\n       Welcome to ULTIMATE OMEGA BUTTER!!\n                  (program)\n==========================================================\n");//title
+            Console.Write("{0}\nDoraemon enter 1\nGuess number enter 2\nhangman enter 3\nto stop the program enter 4: ",reenternumber);//choice
             n = Console.ReadLine();
             switch (n)
             {
                 case "1":
+                    Console.Clear();
                     doraemon();
                     Console.Clear();
                     break;
                 case "2":
+                    Console.Clear();
                     guessnumbergame();
                     Console.Clear();
                     break;
                 case "3":
+                    Console.Clear();
                     hangman hangman = new hangman();
                     hangman.starthangman();
                     Console.Clear();
@@ -34,11 +37,11 @@ internal class Program
                     g = false;
                     break;
                 default:
-                    Console.WriteLine("Please reenter number");
+                    Console.Clear();
+                    reenternumber = "Please reenter number";
                     break;
             }
         }
-
 }
 
     static void doraemon()
@@ -164,7 +167,7 @@ internal class Program
         string reround;
         int round = 1, playercount, maxnumber;
         //Introduce program let user design maximum , how many round they want and how many players
-        Console.WriteLine("This is program guess random integer number\nIf insert 0 or not a number the maximum will set to 1000\n=============================");
+        Console.WriteLine("==========================================================\nThis is program guess random integer number\nIf insert 0 or not a number the maximum will set to 1000\n==========================================================");
         Console.Write("How many player : ");
         int.TryParse(Console.ReadLine(), out playercount);
 
