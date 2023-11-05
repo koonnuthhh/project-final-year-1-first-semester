@@ -13,12 +13,12 @@ internal class Program
         while (g) 
         {
             Console.Write("==========================================================\n       Welcome to ULTIMATE OMEGA BUTTER!!\n                  (program)\n==========================================================\n");//title
-            Console.Write("{0}\nDoraemon enter 1\nGuess number enter 2\nhangman enter 3\nto stop the program enter 4: ",reenternumber);//choice
+            Console.Write("{0}\nDoraemon enter 1\nGuess number enter 2\nhangman enter 3\nandrew game enter 4\nto stop the program enter 5: ",reenternumber);//choice
             n = Console.ReadLine();
             switch (n)
             {
                 case "1":
-                    Console.Clear();
+
                     doraemon();
                     Console.Clear();
                     break;
@@ -34,6 +34,11 @@ internal class Program
                     Console.Clear();
                     break;
                 case "4":
+                    Console.Clear();
+                    andrew andrew = new andrew();
+                    andrew.andrewstart();
+                    break;
+                case "5":
                     g = false;
                     break;
                 default:
@@ -422,5 +427,162 @@ class hangman
             }
         }
 
+    }
+}
+ class andrew
+{
+    static int PlayerMaxHP = 10;
+    static int PlayerRemainingHP = 10;
+    static int PlayerDamage = 2;
+    static int Gold = 100;
+    static int EnemyMaxHP = 5;
+    static int EnemyRemainingHP = 5;
+    static int EnemyDamage = 1;
+
+    static bool PlayerAlive = true;
+    static bool EnemyAlive = true;
+    static bool GameOver = false;
+    static bool CombatStatus = true;
+
+    public static void CombatMethod()
+    {
+        int CombatEnemyRemainingHP = EnemyRemainingHP;
+        int CombatPlayerRemainingHP = PlayerRemainingHP;
+
+        while (CombatStatus)
+        {
+
+            if (CombatPlayerRemainingHP > 0 && CombatEnemyRemainingHP > 0)
+            {
+                CombatEnemyRemainingHP = CombatEnemyRemainingHP - PlayerDamage;
+                Console.WriteLine("Enemy took " + PlayerDamage + " Damage " + CombatEnemyRemainingHP + "/" + EnemyMaxHP + "HP");
+                if (CombatEnemyRemainingHP > 0)
+                {
+                    CombatPlayerRemainingHP = CombatPlayerRemainingHP - EnemyDamage;
+                    Console.WriteLine("You took " + EnemyDamage + " Damage " + CombatPlayerRemainingHP + "/" + PlayerMaxHP + "HP\n------------------");
+                }
+            }
+            else if (CombatEnemyRemainingHP <= 0)
+            {
+                Console.WriteLine("------------------\nYou defeated the enemy! You gained 200 gold");
+                Gold = Gold + 200;
+                PlayerRemainingHP = CombatPlayerRemainingHP;
+                Console.WriteLine("You have " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP\n[]---------End of fight---------[]");
+                CombatStatus = false;
+                return;
+
+            }
+            else if (CombatPlayerRemainingHP <= 0)
+            {
+                Console.WriteLine("You died");
+                CombatStatus = false;
+                GameOver = true;
+                return;
+            }
+        }
+
+    }
+
+    static void ShopMethod()
+    {
+        bool ShopClosed = false;
+        string[] PowerUps = { "Hamburger", "Apple", "Fire Pepper" };
+        int[] Price = { 200, 150, 150 };
+
+        while (!ShopClosed)
+        {
+            Console.WriteLine("[]---------Welcome to the shop!---------[]");
+            Console.WriteLine("Here are the available items: \n1. Hamburger (+3 attack +10 health)\n2. Apple (+5 Health)\n3. Fire Pepper (+5 attack)\n4. Leave shop");
+
+            int SelectedItem = Convert.ToInt32(Console.ReadLine());
+            {
+                if (SelectedItem == 4)
+                {
+                    ShopClosed = true;
+                    break;
+                }
+                else if (SelectedItem > 0 && SelectedItem <= PowerUps.Length)
+                {
+                    if (Gold >= Price[SelectedItem - 1])
+                    {
+                        Gold -= Price[SelectedItem - 1];
+                        Console.WriteLine("You have purchased: " + PowerUps[SelectedItem - 1] + " -" + Price[SelectedItem - 1] + " Gold");
+                        if (SelectedItem == 1)
+                        {
+                            PlayerMaxHP += 10;
+                            PlayerRemainingHP += 10;
+                            PlayerDamage += 3;
+                        }
+                        else if (SelectedItem == 2)
+                        {
+                            PlayerMaxHP += 5;
+                            PlayerRemainingHP += 5;
+                        }
+                        else if (SelectedItem == 3)
+                        {
+                            PlayerDamage += 5;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void andrewstart()
+    {
+        int Choice = 0;
+
+        while (!GameOver)
+        {
+            Console.Write("Welcome to your epic adventure!, what is your hero's name?: ");
+            String Name = Console.ReadLine();
+            Console.WriteLine("Welcome " + Name + " here is your profile: \n*********************");
+            Console.WriteLine("Health: " + PlayerMaxHP + "\nDamage: " + PlayerDamage + "\nGold: " + Gold + "\n*********************");
+            Console.WriteLine("You encounter a slime, what would you like to do?\n1: Fight\n2: Run\n*********************");
+            Choice = Convert.ToInt32(Console.ReadLine());
+
+
+            switch (Choice)
+            {
+                case 1:
+                    Console.WriteLine("[]---------You choose to fight---------[]\n------------------");
+                    CombatMethod();
+                    break;
+
+                case 2:
+                    Console.WriteLine("You choose to run away");
+                    break;
+            }
+
+
+            Console.WriteLine("What would you like to do next?\n1: Continue \n2: Shop \n3: Rest");
+            Choice = Convert.ToInt32(Console.ReadLine());
+
+
+            switch (Choice)
+            {
+                case 1:
+                    Console.WriteLine("Next combat");
+                    break;
+
+                case 2:
+                    ShopMethod();
+                    Console.WriteLine("[TESTING] PlayerMaxHP: " + PlayerMaxHP);
+                    Console.WriteLine("[TESTING] PlayerRemainingHP: " + PlayerRemainingHP);
+                    Console.WriteLine("[TESTING] PlayerDamage: " + PlayerDamage);
+                    Console.WriteLine("[TESTING] PlayerGold: " + Gold);
+
+                    break;
+
+                case 3:
+                    Console.WriteLine("Rest");
+                    while (PlayerRemainingHP < PlayerMaxHP)
+                    {
+                        PlayerRemainingHP++;
+                    }
+                    Console.WriteLine("[TESTING] PlayerRemainingHealth: " + PlayerRemainingHP);
+                    break;
+            }
+        }
     }
 }
