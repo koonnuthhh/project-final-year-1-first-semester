@@ -8,6 +8,7 @@ internal class Program
 {
     static void Main(string[] args)
     {
+        //test of pull
         bool g = true;
         string n = null;
         while (g) 
