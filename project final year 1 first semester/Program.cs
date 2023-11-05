@@ -8,7 +8,7 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        //test of pull
+        //test of push
         bool g = true;
         string n = null;
         while (g) 
