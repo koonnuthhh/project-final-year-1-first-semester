@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.Design;
+using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -173,39 +174,52 @@ internal class Program
         int round = 1, playercount, maxnumber;
         //Introduce program let user design maximum , how many round they want and how many players
         Console.WriteLine("==========================================================\nThis is program guess random integer number\nIf insert 0 or not a number the maximum will set to 1000\n==========================================================");
-        Console.Write("How many player : ");
-        int.TryParse(Console.ReadLine(), out playercount);
-
-
-        Console.Write("please Enter maximum number to generate :");
-        if (int.TryParse(Console.ReadLine(), out maxnumber) == false) { maxnumber = 1000; }
-
-
-        int[] playerscore = new int[playercount];
-
-        //To call game method and collect data
-        while (round <= playercount)
+        do {
+            Console.Write("How many player(Enter only integer): ");
+        } while (int.TryParse(Console.ReadLine(), out playercount) == false) ;
+            Console.Write("please Enter maximum number to generate :");
+        if (int.TryParse(Console.ReadLine(), out maxnumber) == false || maxnumber == 0 || maxnumber == 1) { maxnumber = 1000; }
+        Console.Clear();
+        if (playercount == 1)
         {
-
-            Console.WriteLine("person {0} play", round);
-            playerscore[round - 1] = randomnumber(maxnumber);
-            Console.WriteLine("=============================");
+            int score = randomnumber(maxnumber);
+            Console.WriteLine($"you win by guess {score} times");
             round++;
         }
-
-        //to check who's the winner
-        int count = 1, lowest = 2147483600, winner = 0;
-        foreach (int score in playerscore)
+        else
         {
-
-            if (score < lowest)
+            int[] playerscore = new int[playercount];
+            //To call game method and collect data
+            while (round <= playercount)
             {
-                lowest = score;
-                winner = count;
+
+                Console.WriteLine("person {0} play", round);
+                playerscore[round - 1] = randomnumber(maxnumber);
+                round++;
+                
             }
-            count++;
+
+            //to check who's the winner
+            int count = 1, lowest = 2147483600, winner = 0;
+            foreach (int score in playerscore)
+            {
+
+                if (score < lowest)
+                {
+                    lowest = score;
+                    winner = count;
+                }
+                count++;
+            }
+            if (lowest == 1)
+            {
+                Console.WriteLine($"The winner is player {winner} in The First times");
+            }
+            else
+            {
+                Console.WriteLine($"The winner is player {winner} by guess {lowest} times");
+            }
         }
-        Console.WriteLine("The winner is player {0}", winner);
         Console.Write("=============================\nDo you want to play again?\nY/N : ");
         reround = Console.ReadLine();
         while (reround != "N")
@@ -483,7 +497,7 @@ class hangman
 
     }
 
-    static void ShopMethod()
+     static void ShopMethod()
     {
         bool ShopClosed = false;
         string[] PowerUps = { "Hamburger", "Apple", "Fire Pepper" };
