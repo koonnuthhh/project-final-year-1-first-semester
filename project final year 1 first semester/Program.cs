@@ -9,18 +9,18 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        bool g = true;
+        bool game = true;
         string n = null,reenternumber = "";
-        while (g) 
+        while (game) 
         {
             Console.Write("==========================================================\n       Welcome to ULTIMATE OMEGA BUTTER!!\n                  (program)\n==========================================================\n");//title
-            Console.Write("{0}\nDoraemon enter 1\nGuess number enter 2\nhangman enter 3\nandrew game enter 4\nto stop the program enter 5: ",reenternumber);//choice
+            Console.Write("{0}\nDoraemon enter 1 (Unavaliable)\n\nGuess number enter 2 (80%)\n\nhangman enter 3 (40%)*can't return to main page\n\nandrew game enter 4 (10%)*can't return to main page\n\nTo stop this program enter 5: ", reenternumber);//choice
             n = Console.ReadLine();
             switch (n)
             {
                 case "1":
-
-                    doraemon();
+                    goto hinddoraemon;
+                    //doraemon();
                     Console.Clear();
                     break;
                 case "2":
@@ -40,15 +40,16 @@ internal class Program
                     andrew.andrewstart();
                     break;
                 case "5":
-                    g = false;
+                    game = false;
                     break;
                 default:
+                    hinddoraemon:
                     Console.Clear();
                     reenternumber = "Please reenter number";
                     break;
             }
         }
-}
+    }
 
     static void doraemon()
     {
@@ -168,18 +169,33 @@ internal class Program
 
 
 
-        static void guessnumbergame()
-        {
+    static void guessnumbergame()
+    {
         string reround;
         int round = 1, playercount, maxnumber;
         //Introduce program let user design maximum , how many round they want and how many players
-        Console.WriteLine("==========================================================\nThis is program guess random integer number\nIf insert 0 or not a number the maximum will set to 1000\n==========================================================");
-        do {
-            Console.Write("How many player(Enter only integer): ");
-        } while (int.TryParse(Console.ReadLine(), out playercount) == false) ;
-            Console.Write("please Enter maximum number to generate :");
-        if (int.TryParse(Console.ReadLine(), out maxnumber) == false || maxnumber == 0 || maxnumber == 1) { maxnumber = 1000; }
+        Console.WriteLine("==========================================================\nThis is program guess random integer number\nIf insert 0 or 1 a number the maximum will set to 1000\n==========================================================");
+        howmanyplayer:
+        Console.Write("How many player(Enter only integer): ");
+        if (int.TryParse(Console.ReadLine(), out playercount) == false)
+        {
+            Console.Write("==========================================================\nPlease reenter\n");
+            goto howmanyplayer;
+        }
+        
+        Console.Write("please Enter maximum number to generate :");
+        reentermaxnumber:
+        if ((int.TryParse(Console.ReadLine(), out maxnumber) == false))
+        {
+            Console.Write("==========================================================\nplease Reenter maximum number to generate (integer) :");
+            goto reentermaxnumber;
+        }
+        else if (maxnumber == 0 || maxnumber == 1)
+        {
+            maxnumber = 1000;
+        }
         Console.Clear();
+        //separate way for one player and more than one
         if (playercount == 1)
         {
             int score = randomnumber(maxnumber);
@@ -192,18 +208,14 @@ internal class Program
             //To call game method and collect data
             while (round <= playercount)
             {
-
                 Console.WriteLine("person {0} play", round);
                 playerscore[round - 1] = randomnumber(maxnumber);
                 round++;
-                
             }
-
             //to check who's the winner
             int count = 1, lowest = 2147483600, winner = 0;
             foreach (int score in playerscore)
             {
-
                 if (score < lowest)
                 {
                     lowest = score;
@@ -222,17 +234,19 @@ internal class Program
         }
         Console.Write("=============================\nDo you want to play again?\nY/N : ");
         reround = Console.ReadLine();
-        while (reround != "N")
+        reround.ToLower();
+        while (reround != "n")
         {
-            
-            if (reround == "Y")
+            if (reround == "y")
             {
+                Console.Clear ();
                 guessnumbergame();
             }
             Console.WriteLine("Please answer only Y/N : ");
             reround = Console.ReadLine();
         }
     }
+
     static int randomnumber(int maxgenerate)
     {
         //declare and tell maxgenerate
