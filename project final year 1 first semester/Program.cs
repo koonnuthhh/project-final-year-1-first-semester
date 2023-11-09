@@ -13,178 +13,289 @@ internal class Program
         string n = null,reenternumber = "";
         while (game) 
         {
-            Console.Write("==========================================================\n       Welcome to ULTIMATE OMEGA BUTTER!!\n                  (program)\n==========================================================\n");//title
-            Console.Write("{0}\nDoraemon enter 1 (Unavaliable)\n\nGuess number enter 2 (80%)\n\nhangman enter 3 (40%)*can't return to main page\n\nandrew game enter 4 (10%)*can't return to main page\n\nTo stop this program enter 5: ", reenternumber);//choice
+            Console.Write("==========================================================\n       Welcome to ULTIMATE OMEGA BUTTER!!\n                  (0.2)\n==========================================================\n");//title
+            Console.Write("{0}\nDoraemon enter 1 (can't run properly)\n\nGuess number enter 2 (80%)\n\nhangman enter 3 (40%)*can't return to main page\n\nandrew game enter 4 (10%)*can't return to main page\n\nTo stop this program enter 5: ", reenternumber);//choice
             n = Console.ReadLine();
             switch (n)
             {
                 case "1":
-                    goto hinddoraemon;
-                    //doraemon();
+                    Doraemongame.Start();
                     Console.Clear();
                     break;
                 case "2":
                     Console.Clear();
-                    guessnumbergame();
+                    guessnumbergame.Start();
                     Console.Clear();
                     break;
                 case "3":
                     Console.Clear();
-                    hangman hangman = new hangman();
                     hangman.starthangman();
                     Console.Clear();
                     break;
                 case "4":
                     Console.Clear();
-                    andrew andrew = new andrew();
                     andrew.andrewstart();
                     break;
                 case "5":
                     game = false;
                     break;
                 default:
-                    hinddoraemon:
                     Console.Clear();
                     reenternumber = "Please reenter number";
                     break;
             }
         }
     }
-
-    static void doraemon()
+}
+class Doraemongame
+{
+    public static void Doraemon()
     {
-        //Declare variable and array
-        string command;
-        bool program = true;
-        Random Card = new Random();
-        int[] deck = { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 };
-        //Enter penalty program
-        Console.WriteLine("Please insert penalty for each card\n=============================");
-        string[] penalty = new string[13];
-        Insertpenalty(penalty);
-        //Random card program
-        while (program)
-        {
-            //random number
-            int card = Card.Next(13);
-            if (deck[card] == 0) { continue; }
-            //text for user and make it can stop when user insert "stop"
-            Console.WriteLine("Enter stop to stop\nPress Enter or Insert anything else to continue  : ");
-            if (Console.ReadLine() == "stop") { program = false; break; }
-            //Condition
-            switch (card)
-            {
-                case <= 8:
-                    Console.WriteLine("Card : " + (card + 2));
-                    Console.WriteLine(penalty[card]);
-                    break;
-                case 9:
-                    Console.WriteLine("Card : Jack");
-                    Console.WriteLine(penalty[card]);
-                    break;
-                case 10:
-                    Console.WriteLine("Card : Queen");
-                    Console.WriteLine(penalty[card]);
-                    break;
-                case 11:
-                    Console.WriteLine("Card : King");
-                    Console.WriteLine(penalty[card]);
-                    break;
-                case 12:
-                    Console.WriteLine("Card : A");
-                    Console.WriteLine(penalty[card]);//we can change Console.WriteLine(penalty[card]); to the lower line but I dont know why I'm not done it
-                    break;
-            }
-            //To make The deck can be empty
-            deck[card]--;
-            //When ran out of condition card
-            if (deck[11] == 0)
-            {
-                Console.WriteLine("=============================\nEnd of round lol");
-                Console.Write("Enter anything to replay or stop to stop : ");//\n or reset to set new penalty
-                if ((command = (Console.ReadLine())) == "stop") { program = false; break; }
-                else
-                {
-                    if (command == "reset")
-                    {
-                        Insertpenalty(penalty);
-                    }
-                    else
-                    {
-                        for (int refill = 0; refill < 12; refill++)
-                        { deck[refill] = 4; }
-                    }
-                }
-            }
-        }
+        Console.WriteLine(" \n===================\n \nDORAEMON GAME\n \n===================\n ");
     }
-
-    static void Insertpenalty(string[] Insert)
+    public static void Start()
     {
-        int i = 0;
+        string[] deck = {"Ace of Spades", "2 of Spades", "3 of Spades", "4 of Spades", "5 of Spades",
+                          "6 of Spades", "7 of Spades", "8 of Spades", "9 of Spades", "10 of Spades",
+                          "Jack of Spades", "Queen of Spades", "King of Spades",
+                          "Ace of Hearts", "2 of Hearts", "3 of Hearts", "4 of Hearts", "5 of Hearts",
+                          "6 of Hearts", "7 of Hearts", "8 of Hearts", "9 of Hearts", "10 of Hearts",
+                          "Jack of Hearts", "Queen of Hearts", "King of Hearts",
+                          "Ace of Diamonds", "2 of Diamonds", "3 of Diamonds", "4 of Diamonds", "5 of Diamonds",
+                          "6 of Diamonds", "7 of Diamonds", "8 of Diamonds", "9 of Diamonds", "10 of Diamonds",
+                          "Jack of Diamonds", "Queen of Diamonds", "King of Diamonds",
+                          "Ace of Clubs", "2 of Clubs", "3 of Clubs", "4 of Clubs", "5 of Clubs",
+                          "6 of Clubs", "7 of Clubs", "8 of Clubs", "9 of Clubs", "10 of Clubs",
+                          "Jack of Clubs", "Queen of Clubs", "King of Clubs" };
+        var random = new Random();
+
+        List<string> King = new List<string>();
+
+        int Kingcount = 0;
+
+        string play;
+
         do
         {
-            switch (i)
+            Doraemon();
+            Console.WriteLine("\n--Rules--\n1. Player need to pick one card from the deck each card has different command that player need to follow.\n2. IF 4 king appear the game end and the player that the last king pick need to do as the previous king had commanded.\n3. If the player go to toilet that player loss and must do as the king command.\n \n----------");
+            Console.Write("\nDO YOU WANT TO PROCEED ? (yes / no) : ");
+            play = Console.ReadLine();
+            Console.Clear();
+
+            if (play == "yes")
             {
-                case <= 8:
-                    Console.WriteLine("Penalty for card {0} : ", i + 2);
-                    Insert[i] = Console.ReadLine();
-                    break;
-                case 9:
-                    Console.WriteLine("Penalty for card Jack : ");
-                    Insert[i] = Console.ReadLine();
-                    break;
-                case 10:
-                    Console.WriteLine("Penalty for card Queen : ");
-                    Insert[i] = Console.ReadLine();
-                    break;
-                case 11:
-                    Console.WriteLine("Penalty for card King : ");
-                    Insert[i] = Console.ReadLine();
-                    break;
-                case 12:
-                    Console.WriteLine("Penalty for card A : ");
-                    Insert[i] = Console.ReadLine();
-                    break;
+                for (int i = deck.Length - 1; i > 0; i--)
+                {
+                    int j = random.Next(i + 1);
+                    string shuffleDeck = deck[i];
+                    deck[i] = deck[j];
+                    deck[j] = shuffleDeck;
+                }
+
+                Doraemon();
+
+                string pick;
+                do
+                {
+                    Console.WriteLine("\nPick one card press : 1\nGo to toilet press  : 2\n");
+                    Console.Write("Your answer : ");
+                    pick = Console.ReadLine();
+
+                    if (pick == "1")
+                    {
+                        string card = deck[0];
+                        char first = card.ToCharArray()[0];
+                        string Fcard = first.ToString(); //Short of facing card
+
+                        string act;
+                        string place;
+                        string time;
+                        string name;
+
+                        Console.Clear();
+                        Doraemon();
+                        Console.WriteLine("\nYour card: " + deck[0] + "\nKing card count : " + King.Count + "\n");
+
+                        switch (Fcard)
+                        {
+                            case "A":
+                                Fcard = "A";
+                                Console.WriteLine("Drink one glass of water !");
+                                break;
+
+                            case "2":
+                                Fcard = "2";
+                                Console.WriteLine("Drink two glass of water !");
+                                break;
+
+                            case "3":
+                                Fcard = "3";
+                                Console.WriteLine("Drink three glass of water !");
+                                break;
+
+                            case "4":
+                                Fcard = "4";
+                                Console.WriteLine("Drink four glass of water !");
+                                break;
+
+                            case "5":
+                                Fcard = "5";
+                                Console.WriteLine("Pair with a buddy. If you or your buddy get to drink from something, it doesn't matter. Another person must drink too.");
+                                break;
+
+                            case "6":
+                                Fcard = "6";
+                                Console.WriteLine("Play category games, for example the topic is animals and say the names of pigs, dogs, crows, chickens. If anyone can't answer, or if you respond late, you will have to drink 1 glass");
+                                break;
+
+                            case "7":
+                                Fcard = "7";
+                                Console.WriteLine("Play the number 7 game by saying the numbers in order and skipping numbers that end in 7 or are divisible by 7 (such as 7 14 17 21 27 28). Anyone who makes a mistake gets 1 glass.");
+                                break;
+
+                            case "8":
+                                Fcard = "8";
+                                Console.WriteLine("You can go to the toilet. You can use it yourself or give it to a friend to go to the toilet.");
+                                break;
+
+                            case "9":
+                                Fcard = "9";
+                                Console.WriteLine("Person on the left drink 1 glass");
+                                break;
+
+                            case "1":
+                                Fcard = "1";
+                                Console.WriteLine("Person on the right drink 1 glass");
+                                break;
+
+                            case "J":
+                                Fcard = "J";
+                                Console.WriteLine("The person who gets this card must do something.The last person in the circle to do the same gets 1 drink.");
+                                break;
+
+                            case "Q":
+                                Fcard = "Q";
+                                Console.WriteLine("Do not speak to the person who received this card. If you speak, you get 1 drink.");
+                                break;
+
+                            case "K":
+                                Fcard = "K";
+                                Console.WriteLine("The King's command : Action, Place, Duration, Who");
+                                if (card == "King of Spades")
+                                {
+                                    Console.Write("Enter action : ");
+                                    Kingcount++;
+                                    act = Console.ReadLine();
+                                    King.Add(act);
+                                    if (Kingcount == 4)
+                                    {
+                                        Console.Clear();
+                                        Doraemon();
+                                        foreach (string command in King)
+                                        {
+                                            Console.WriteLine(command + "\n____________________");
+                                        }
+                                    }
+                                }
+                                else if (card == "King of Hearts")
+                                {
+                                    Console.Write("Enter place : ");
+                                    Kingcount++;
+                                    place = Console.ReadLine();
+                                    King.Add(place);
+                                    if (Kingcount == 4)
+                                    {
+                                        Console.Clear();
+                                        Doraemon();
+                                        foreach (string command in King)
+                                        {
+                                            Console.WriteLine(command + "\n____________________");
+                                        }
+                                    }
+                                }
+                                else if (card == "King of Diamonds")
+                                {
+                                    Console.Write("Enter duration : ");
+                                    Kingcount++;
+                                    time = Console.ReadLine();
+                                    King.Add(time);
+                                    if (Kingcount == 4)
+                                    {
+                                        Console.Clear();
+                                        Doraemon();
+                                        foreach (string command in King)
+                                        {
+                                            Console.WriteLine(command + "\n____________________");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Write("Enter Name : ");
+                                    Kingcount++;
+                                    name = Console.ReadLine();
+                                    King.Add(name);
+                                    if (Kingcount == 4)
+                                    {
+                                        Console.Clear();
+                                        Doraemon();
+                                        foreach (string command in King)
+                                        {
+                                            Console.WriteLine(command + "\n____________________");
+                                        }
+                                    }
+                                }
+                                break;
+                        }
+
+                        deck = deck.Skip(1).ToArray();
+
+                    }
+                    else if (pick == "2")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\n\n\n=================== YOU LOSS ===================\nlet your friend decid what to punish the loser\n\n\n ");
+                        break;
+                    }
+
+                    else
+                    {
+                        Console.Clear();
+                        Doraemon();
+                        Console.WriteLine("\nINVALID VALUE : Try Again\n");
+                    }
+
+                } while (Kingcount < 4);
+
+                break;
+
             }
-            if (Insert[i] == "") { Console.Write("Please reenter "); continue; }
-            if (Insert[i] == "reenter") 
-            { 
-                Console.Write("Please reenter "); 
-                i--; 
-                if (i == -1) { i++; }
-                continue; 
+            else if (play == "no")
+            {
+                Console.WriteLine("\n\n\n===== GOOD BYE =====\n\n\n");
             }
-            i++;
-        } while (i <= 12);
+        } while (play != "no");
     }
-
-
-
-
-
-
-
-
-
-
-
-    static void guessnumbergame()
+}
+class guessnumbergame
+{
+    public static void Start()
     {
         string reround;
         int round = 1, playercount, maxnumber;
         //Introduce program let user design maximum , how many round they want and how many players
         Console.WriteLine("==========================================================\nThis is program guess random integer number\nIf insert 0 or 1 a number the maximum will set to 1000\n==========================================================");
-        howmanyplayer:
+    howmanyplayer:
         Console.Write("How many player(Enter only integer): ");
         if (int.TryParse(Console.ReadLine(), out playercount) == false)
         {
             Console.Write("==========================================================\nPlease reenter\n");
             goto howmanyplayer;
         }
-        
+
         Console.Write("please Enter maximum number to generate :");
-        reentermaxnumber:
+    reentermaxnumber:
         if ((int.TryParse(Console.ReadLine(), out maxnumber) == false))
         {
             Console.Write("==========================================================\nplease Reenter maximum number to generate (integer) :");
@@ -239,8 +350,8 @@ internal class Program
         {
             if (reround == "y")
             {
-                Console.Clear ();
-                guessnumbergame();
+                Console.Clear();
+                Start();
             }
             Console.WriteLine("Please answer only Y/N : ");
             reround = Console.ReadLine();
@@ -250,9 +361,9 @@ internal class Program
     static int randomnumber(int maxgenerate)
     {
         //declare and tell maxgenerate
-        Console.WriteLine("The number will below {0}",maxgenerate +"\n=============================");
+        Console.WriteLine("The number will below {0}", maxgenerate + "\n=============================");
         Random generate = new Random();
-        int number = generate.Next(maxgenerate), guess = -1, i = 0; 
+        int number = generate.Next(maxgenerate), guess = -1, i = 0;
         while (number == 0) { number = generate.Next(maxgenerate); }
 
         //real guess program and count how many round user take
@@ -290,7 +401,6 @@ internal class Program
         }
         return i;
     }
-    
 }
 class hangman
 {
