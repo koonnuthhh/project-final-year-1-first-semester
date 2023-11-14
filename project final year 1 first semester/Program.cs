@@ -7,14 +7,14 @@ using System.Text;
 
 internal class Program
 {
-    static void Main(string[] args)
+    public static void Main()
     {
         bool game = true;
-        string n = null,reenternumber = "";
+        string n = null,reenternumber = null;
         while (game) 
         {
-            Console.Write("==========================================================\n       Welcome to ULTIMATE OMEGA BUTTER!!\n                  (0.2)\n==========================================================\n");//title
-            Console.Write("{0}\nDoraemon enter 1 (can't run properly)\n\nGuess number enter 2 (80%)\n\nhangman enter 3 (40%)*can't return to main page\n\nandrew game enter 4 (10%)*can't return to main page\n\nTo stop this program enter 5: ", reenternumber);//choice
+            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (0.3)\n\n==========================================================\n");//title
+            Console.Write("{0}\nDoraemon enter 1 (Need to improve)\n\nGuess number enter 2 (80%)\n\nhangman enter 3 (40%)*can't return to main page\n\nandrew game enter 4 (10%)*can't return to main page\n\nsi-de? enter 5 (testting)\n\n==========================================================\n\n\nTo exit this program enter 6 : ", reenternumber);//choice
             n = Console.ReadLine();
             switch (n)
             {
@@ -37,6 +37,10 @@ internal class Program
                     andrew.andrewstart();
                     break;
                 case "5":
+                    Console.Clear();
+                    butter.start();
+                    break;
+                case "6":
                     game = false;
                     break;
                 default:
@@ -510,7 +514,7 @@ class hangman
             if (player1 > 1) { Check(rounds); }
 
 
-            Again(again);
+            again = Again(again);
 
 
             static void Check(int[] rounds)
@@ -567,7 +571,7 @@ class hangman
 
     }
 }
- class andrew
+class andrew
 {
     static int PlayerMaxHP = 10;
     static int PlayerRemainingHP = 10;
@@ -724,3 +728,435 @@ class hangman
         }
     }
 }
+class butter
+{
+    static int blood = 10;
+
+    static int x = 0;
+    static int y = 0;
+    static int z = 0;
+    public static void cop()
+    {
+        Console.WriteLine("*================================================================*");
+    }
+    public static void endplay()
+    {
+    reenterplay:
+        Console.WriteLine("You want to play again.\n1.Yes. \n2.No.");
+        cop();
+        Console.Write("You choose :");
+        int playagain;
+        if ((int.TryParse(Console.ReadLine(), out playagain) == false))
+        {
+            Console.Clear();
+            Console.WriteLine("Please not enter string");
+            goto reenterplay;
+        }
+        Console.Clear();
+        if (playagain == 1)
+        {
+            start();
+        }
+        else if (playagain == 2)
+        {
+            Program.Main();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Please enter only 1 and 2");
+            goto reenterplay;
+        }
+    }
+    static void Bloodmethod()
+    {
+        Console.Clear();
+        if (blood <= 0)
+        {
+            cop();
+            Console.WriteLine("                 YOU DIE.                 \n                GAME OVER.               ");
+            cop();
+            endplay();
+
+        }
+        else
+        {
+            Console.WriteLine("Blood = " + blood);
+        }
+    }
+    static void Left()
+    {
+        Console.Clear();
+    reenterrunorhitsnake:
+        cop();
+        Console.WriteLine("You find a snake in front of you. You choose to \n1. run \n2. hit the snake.");
+        cop();
+        Console.Write("You choose to : ");
+        int left1;
+        if ((int.TryParse(Console.ReadLine(), out left1) == false))
+        {
+            Console.Clear();
+            Console.WriteLine("Please not enter string.");
+            goto reenterrunorhitsnake;
+
+        }
+        Console.Clear();
+        cop();
+
+        switch (left1)
+        {
+            case 1:
+                if (y < 3) { blood -= 2; }
+                Console.WriteLine("You choose to run.");
+                Bloodmethod();
+
+                break;
+            case 2:
+                if (z < 1) { blood -= 2; }
+                Console.WriteLine("You choose to hit the snake.");
+                Bloodmethod();
+
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("Please enter only 1 and 2.");
+                goto reenterrunorhitsnake;
+        }
+
+    reenterclimborwalk:
+        cop();
+        Console.WriteLine("You made it through but found that in front of you was a deep cliff." +
+            "\nWhat do you do?\n1.Climb down the cliff. \n2.Walk back the same way.");
+        cop();
+
+        Console.Write("You do :");
+        int left2;
+        if ((int.TryParse(Console.ReadLine(), out left2) == false))
+        {
+            Console.Clear();
+            Console.WriteLine("Please not enter string.");
+            goto reenterclimborwalk;
+        }
+        Console.Clear();
+        cop();
+        if (left2 == 1)
+        {
+            if (y < 3) { blood -= 2; }
+            Console.WriteLine("Climb down the cliff.");
+            Bloodmethod();
+            Right();
+        }
+        else if (left2 == 2)
+        {
+        reenterrunhit:
+            Console.WriteLine("Walk back the same way.");
+            Console.WriteLine("You  find a snake in front of you.You choose to \n1.run. \n2. hit the snake.");
+            cop();
+            Console.Write("You choose to : ");
+            int left3 = int.Parse(Console.ReadLine());
+            Console.Clear();
+            cop();
+            switch (left3)
+            {
+                case 1:
+                    if (y < 3) { blood -= 2; }
+                    Console.WriteLine("You  run.");
+                    Bloodmethod();
+
+                    break;
+                case 2:
+                    if (z < 1) { blood -= 2; }
+                    Console.WriteLine("You hit the snake.");
+                    Bloodmethod();
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Please enter only 1 and 2.");
+                    cop();
+                    goto reenterrunhit;
+
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Please enter only 1 and 2.");
+            goto reenterclimborwalk;
+        }
+    }
+
+    public static void Right()
+    {
+    reenterswimjump:
+        cop();
+        Console.Clear();
+        Console.WriteLine("You go to  front of you is a stream with children's voices heard from the other side. " +
+            "\nYou will.\n1.swim to the other side. \n2.jump over the rocks.");
+        cop();
+        Console.Write("You will :");
+        int right;
+        if ((int.TryParse(Console.ReadLine(), out right) == false))
+        {
+            Console.Clear();
+            Console.WriteLine("Please not enter string.");
+            goto reenterswimjump;
+
+        }
+        Console.Clear();
+        cop();
+        switch (right)
+        {
+            case 1:
+                if (x < 4) { blood -= 3; }
+                Console.WriteLine("You choose to swim to the other side.");
+                Bloodmethod();
+                break;
+            case 2:
+                if (y < 2) { blood -= 4; }
+                Console.WriteLine("You choose to  jump over the rocks.");
+                Bloodmethod();
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("Please enter only 1 and 2.");
+                goto reenterswimjump;
+
+        }
+    reenterexplorewalk:
+        cop();
+        Console.WriteLine("You made it across the stream only to find that there was no one on the other side.\nYou will " +
+            "\n1.explore\n2.Walk into the bamboo pile in front.");
+        cop();
+        Console.Write("You will : ");
+        int right1;
+        if ((int.TryParse(Console.ReadLine(), out right1) == false))
+        {
+            Console.Clear();
+            Console.WriteLine("Please not enter string.");
+            goto reenterexplorewalk;
+        }
+        Console.Clear();
+        cop();
+        switch (right1)
+        {
+            case 1:
+                if (z < 4) { blood -= 3; }
+                Console.WriteLine("You will explore.");
+                Bloodmethod();
+                break;
+            case 2:
+                if (z < 3) { blood -= 2; }
+                Console.WriteLine(" You will Walk into the bamboo pile in front.");
+                Bloodmethod();
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("Please enter only 1 and 2.");
+                goto reenterexplorewalk;
+
+        }
+    }
+
+    static void walkin()
+    {
+    reenterwalkkeep:
+        cop();
+        Console.WriteLine("You found the child's footprints so you continued to follow them. until finding a hut.\nSo you \n1.Walked in \n2.Keep an eye on the front.");
+        cop();
+        Console.Write("You will : ");
+        int walk;
+        if ((int.TryParse(Console.ReadLine(), out walk) == false))
+        {
+            Console.Clear();
+            Console.WriteLine("Please not enter string.");
+            goto reenterwalkkeep;
+
+        }
+        Console.Clear();
+        cop();
+        switch (walk)
+        {
+            case 1:
+                if (x < 4 && y < 2 && z < 3) { blood -= 4; }
+                Console.WriteLine("You walked in");
+                Bloodmethod();
+                break;
+            case 2:
+                Console.WriteLine("Keep an eye on the front.\nYou step on the leaves loudly and they can hear it.");
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("Please enter only 1 and 2.");
+                goto reenterwalkkeep;
+
+        }
+
+    }
+
+
+    static void endbabdi()
+    {
+    reenterend:
+        cop();
+        Console.WriteLine("You are tied up in a hut along with the children you are looking for.\nYou must leave this place. There are 2 guards, who will you choose to fight?\n1.A tall person\n2.Small person");
+        cop();
+        Console.Write("You choose : ");
+        int preson;
+        if ((int.TryParse(Console.ReadLine(), out preson) == false))
+        {
+            Console.Clear();
+            Console.WriteLine("Please not enter string.");
+            goto reenterend;
+
+        }
+        Console.Clear();
+        cop();
+        switch (preson)
+        {
+            case 1:
+                Console.WriteLine("A tall person.");
+                if (blood < 5)
+                {
+                    cop();
+                    Console.WriteLine("                 YOU DIE.                 \n                GAME OVER.               ");
+                    cop();
+                    endplay();
+                }
+                else if (blood >= 5)
+                {
+                    cop();
+                    Console.WriteLine("You have defeated them and are out of the forest.");
+                    cop();
+                    endplay();
+                }
+                break;
+            case 2:
+                Console.WriteLine("2.Small person");
+                if (blood >= 5)
+                {
+                    cop();
+                    Console.WriteLine("You have defeated them and are out of the forest.");
+                    cop();
+                    endplay();
+                }
+                else if (blood < 5)
+                {
+                    cop();
+                    Console.WriteLine("                 YOU DIE.                 \n                GAME OVER.               ");
+                    cop();
+                    endplay();
+                }
+
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("Please enter only 1 and 2");
+                goto reenterend;
+
+
+        }
+    }
+
+    public static void start()
+    {
+
+        Console.WriteLine("==========Welcome to Si-de===============");
+        cop();
+        Console.WriteLine("You are police. \nReceived a mission to rescue a kidnapped child with the following rules:");
+        cop();
+    resum:
+        Console.WriteLine("-You have 5 extra points.\n-Points can be added to 3 qualities: +\n1. strength \n2. speed \n3. determination." +
+            "\n-And has 10 units of blood " + "\n-Please divide your score into 3 characteristics well.");
+        cop();
+
+        int sum;
+        sum = x + y + z;
+        while (sum != 5)
+        {
+            Console.Write("1. strength = ");
+            int x = 0;
+            if ((int.TryParse(Console.ReadLine(), out x) == false))
+            {
+                Console.Clear();
+                Console.WriteLine("Please not enter string");
+                cop();
+                goto resum;
+            }
+            Console.Write("2. speed = ");
+            int y = 0;
+            if ((int.TryParse(Console.ReadLine(), out y) == false))
+            {
+                Console.Clear();
+                Console.WriteLine("Please not enter string");
+                cop();
+                goto resum;
+            }
+            Console.Write("3. determination. = ");
+            int z = 0;
+            if ((int.TryParse(Console.ReadLine(), out z) == false))
+            {
+                Console.Clear();
+                Console.WriteLine("Please not enter string");
+                cop();
+                goto resum;
+            }
+            Console.Clear();
+            sum = x + y + z;
+            if (sum > 5)
+            {
+                Console.WriteLine("+You put more then 5 points.\n+You have 5 extra points.\n+Please enter the score again.");
+                cop();
+            }
+            else if (sum < 5)
+            {
+                Console.WriteLine("+You put less then 5 points.\n+You have 5 extra points.\n+Please enter the score again.");
+                cop();
+            }
+
+            else if (sum == 5)
+            {
+
+                cop();
+            }
+
+        }
+    reenterleftlight:
+        Console.WriteLine("You have been informed that a child has been kidnapped and taken deep into the forest.\n" +
+                "After going to the deep forest, there is a fork in the road for you to split.\n You will go \n1. left. \n2. right.");
+        cop();
+        //5-6
+
+        int choice1;
+
+        Console.Write("You will go : ");
+        if ((int.TryParse(Console.ReadLine(), out choice1) == false))
+        {
+            Console.Clear();
+            Console.WriteLine("Please not enter string");
+            cop();
+            goto reenterleftlight;
+        }
+
+        switch (choice1)
+        {
+            case 1:
+                Left();
+
+                break;
+            case 2:
+                Right();
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("Please enter only 1 and 2");
+                cop();
+                goto reenterleftlight;
+
+        }
+        Right();
+        walkin();
+        endbabdi();
+    endbutter:;
+    }
+}
+
