@@ -13,8 +13,8 @@ internal class Program
         string n = null,reenternumber = null;
         while (game) 
         {
-            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (0.4)\n\n==========================================================\n");//title
-            Console.Write("{0}\nDoraemon enter 1 (Need to improve)\n\nGuess number enter 2 (80%)\n\nhangman enter 3 (40%)*can't return to main page\n\nandrew game enter 4 (finish but in debugging process)\n\nsi-de? enter 5 (testting)\n\n==========================================================\n\n\nTo exit this program enter 6 : ", reenternumber);//choice
+            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (0.5)\n\n==========================================================\n");//title
+            Console.Write("{0}\nDoraemon enter 1 \n\nGuess number enter 2 (80%)\n\nhangman enter 3 \n\nandrew game enter 4 (Finished)\n\nsi-de? enter 5 (testting)\n\n==========================================================\n\n\nTo exit this program enter 6 : ", reenternumber);//choice
             reenternumber = null;
             n = Console.ReadLine();
             switch (n)
@@ -37,7 +37,7 @@ internal class Program
                 case "4":
                     Console.Clear();
                     andrew.andrewstart();
-                    //Console.Clear();
+                    Console.Clear();
                     break;
                 case "5":
                     Console.Clear();
@@ -293,7 +293,7 @@ class guessnumbergame
         int round = 1, playercount, maxnumber;
         //Introduce program let user design maximum , how many round they want and how many players
         Console.WriteLine("==========================================================\nThis is program guess random integer number\nIf insert 0 or 1 a number the maximum will set to 1000\n==========================================================");
-    howmanyplayer:
+    howmanyplayer: 
         Console.Write("How many player(Enter only integer): ");
         if (int.TryParse(Console.ReadLine(), out playercount) == false)
         {
@@ -416,10 +416,8 @@ class hangman
         bool again = true;
         while (again)
         {
-
             Console.WriteLine("---------Welcome to Hangman!---------");
             string[] secretWord = { "programming", "banana", "koonnuthhh" }; // The word to guess
-
             Console.Write("\nHow many player ? <int only> : ");
             string player = Console.ReadLine();
 
@@ -427,17 +425,11 @@ class hangman
             {
                 while (!int.TryParse(player, out player1))
                 {
-
                     Console.WriteLine("\n###### Hey! I told you INTIGER ONLY !!!! ######");
                     Console.Write("How many player ? <int only> : ");
                     player = Console.ReadLine();
-
-
                 }
-
             }
-
-
             int[] rounds = new int[player1];
             player1 = 1;
             while (player1 <= rounds.Length)
@@ -476,12 +468,7 @@ class hangman
                             an = an.ToLower();
 
                         }
-
-
-
                     }
-
-
                     bool found = false;
                     for (int i = 0; i < real.Length; i++)
                     {
@@ -491,7 +478,6 @@ class hangman
                             found = true;
                         }
                     }
-
                     if (!found)
                     {
                         attempts--;
@@ -502,11 +488,7 @@ class hangman
                         Console.WriteLine("Congratulations! You guessed the word: " + real);
                         break;
                     }
-
-
                 }
-
-
                 if (attempts == 0)
                 {
                     Console.WriteLine("You ran out of attempts. The word was: " + real);
@@ -515,14 +497,9 @@ class hangman
                 player1++;
             }
             if (player1 > 1) { Check(rounds); }
-
-
             again = Again(again);
-
-
             static void Check(int[] rounds)
             {
-
                 int a = 1;
                 int b = rounds[0];
                 Console.WriteLine("\n===========Scoreboard========== ");
@@ -531,7 +508,6 @@ class hangman
                     Console.WriteLine($"Player {a} have rounds left {i} ");
                     a++;
                     b = Math.Max(b, i);
-
                 }
                 int index = Array.IndexOf(rounds, b);
                 Console.WriteLine("================\nThe winner is player " + (index + 1));
@@ -562,16 +538,10 @@ class hangman
                         again = false;
 
                         break;
-
-
-
-
                 }
                 return again;
-
             }
         }
-
     }
 }
 class andrew
@@ -592,6 +562,7 @@ class andrew
     static bool GameOver = false;
     static bool CombatStatus = true;
 
+    static int Choice = 0;
     public static void CombatMethod()
     {
         int CombatEnemyRemainingHP = EnemyRemainingHP;
@@ -673,7 +644,7 @@ class andrew
                         }
                         else if (SelectedItem == 4)
                         {
-                            Console.WriteLine("You read the piece of paper it says: Arms, Legs, Brain, Heart\n");
+                            Console.WriteLine("You read the piece of paper it says: Next year.\n");
                         }
                     }
                     else if (Gold <= Price[SelectedItem - 1])
@@ -689,7 +660,7 @@ class andrew
     public static void ChestMethod()
     {
         int attempts = 3;
-        int[] correctCode = { 2, 2, 1, 1 };
+        int[] correctCode = { 2, 0, 2, 4 };
         int[] guess = new int[4];
 
         while (attempts > 0)
@@ -732,164 +703,242 @@ class andrew
         {
             Console.WriteLine("You died");
             GameOver = true;
-            //return;
+            return;
         }
     }
 
     public static void andrewstart()
     {
-        int Choice = 0;
-        //GameOver = false;
-        while (!GameOver)
+
+        bool PlayAgain = true;
+
+        while (PlayAgain)
         {
-            Console.Write("Welcome to your epic adventure!, what is your hero's name?: ");
-            String Name = Console.ReadLine();
-            Console.WriteLine("Welcome " + Name + " here is your profile: \n*********************");
-            Console.WriteLine("Health: " + PlayerMaxHP + "\nDamage: " + PlayerDamage + "\nGold: " + Gold + "\n*********************");
-            Console.WriteLine("You encounter a slime, what would you like to do?\n1: Fight\n2: Run\n*********************");
-            Choice = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
 
-            //Starting first enemy encounter
-            switch (Choice)
+            while (!GameOver)
             {
-                case 1:
-                    Console.WriteLine("[]---------You choose to fight---------[]\n------------------");
-                    CombatMethod();
-                    break;
+                int Choice = 0;
+                PlayerMaxHP = 10;
+                PlayerRemainingHP = 10;
+                PlayerDamage = 2;
+                Gold = 100;
 
-                case 2:
-                    Console.WriteLine("You choose to run away");
+                EnemyAlive = true;
+                EnemyDamage = 1;
+                EnemyMaxHP = 5;
+                EnemyRemainingHP = 5;
+                EnemyGoldValue = 200;
+
+                CombatStatus = true;
+
+                Console.Clear();
+                Console.Write("Welcome to your epic adventure!, what is your hero's name?: ");
+                String Name = Console.ReadLine();
+                Console.WriteLine("Welcome " + Name + " here is your profile: \n*********************");
+                Console.WriteLine("Health: " + PlayerMaxHP + "\nDamage: " + PlayerDamage + "\nGold: " + Gold + "\n*********************");
+                Console.WriteLine("You encounter a slime, what would you like to do?\n1: Fight\n2: Run\n*********************");
+                Choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+
+                //Starting first enemy encounter
+                switch (Choice)
+                {
+                    case 1:
+                        Console.WriteLine("[]---------You choose to fight---------[]\n------------------");
+                        CombatMethod();
+                        break;
+
+                    case 2:
+                        Console.WriteLine("You choose to run away");
+                        break;
+                }
+
+
+                Console.WriteLine("What would you like to do next?\n1: Continue \n2: Shop \n3: Rest");
+                Choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+
+                //Choices to choose after combat
+                switch (Choice)
+                {
+                    case 1: //continue
+                        break;
+
+                    case 2: //shop
+                        ShopMethod();
+                        break;
+
+                    case 3: //rest
+                        Console.WriteLine("Rest");
+                        while (PlayerRemainingHP < PlayerMaxHP)
+                        {
+                            PlayerRemainingHP++;
+                        }
+                        Console.WriteLine("You've restored to full health " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP");
+                        break;
+                }
+
+                //Setting the stats for enemy number 2
+                EnemyMaxHP = 20;
+                EnemyRemainingHP = 20;
+                EnemyDamage = 1;
+                Console.WriteLine("*********************\nYou encounter a walking tree, what would you like to do?\n1: Fight\n2: Run\n3: Hug\n*********************");
+                Choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                switch (Choice)
+                {
+                    case 1:
+                        Console.WriteLine("[]---------You choose to fight---------[]\n------------------");
+                        CombatStatus = true;
+                        EnemyGoldValue = 300;
+                        CombatMethod();
+                        break;
+
+                    case 2:
+                        Console.WriteLine("You choose to run away");
+                        break;
+
+                    case 3:
+                        Console.WriteLine("You hug the tree, he gives you an apple! +5 Health");
+                        PlayerMaxHP += 5;
+                        PlayerRemainingHP += 5;
+                        break;
+                }
+
+                CheckPlayerHealth();
+                if (GameOver)
+                {
                     break;
+                }
+
+                Console.WriteLine("You find a mysterious chest with a lock, what do you do?\n1. Try to open it\n2. Ignore it\n");
+                Choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                switch (Choice)
+                {
+                    case 1:
+                        Console.Clear();
+                        ChestMethod();
+                        break;
+
+                    case 2:
+                        Console.WriteLine("Ignore it");
+                        break;
+                }
+
+                CheckPlayerHealth();
+                if (GameOver)
+                {
+                    break;
+                }
+
+                Choice = 0;
+                Console.WriteLine("You keep moving forward, what would you like to do next?\n1: Continue \n2: Shop \n3: Rest");
+                Choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                switch (Choice)
+                {
+                    case 1: //continue
+                        break;
+
+                    case 2: //shop
+                        ShopMethod();
+                        break;
+
+                    case 3: //rest
+                        while (PlayerRemainingHP < PlayerMaxHP)
+                        {
+                            PlayerRemainingHP++;
+                        }
+                        Console.WriteLine("You've restored to full health " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP");
+                        break;
+                }
+
+                //Setting the stats for enemy number 3
+                EnemyMaxHP = 60;
+                EnemyRemainingHP = 60;
+                EnemyDamage = 5;
+                Console.WriteLine("*********************\nYou encounter a very big lizard, what would you like to do?\n1: Fight\n2: Run\n*********************");
+                Choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                switch (Choice)
+                {
+                    case 1:
+                        Console.WriteLine("[]---------You choose to fight---------[]\n------------------");
+                        CombatStatus = true;
+                        EnemyGoldValue = 300;
+                        CombatMethod();
+                        break;
+
+                    case 2:
+                        Console.WriteLine("You choose to run away");
+                        break;
+                }
+
+                Choice = 0;
+                Console.WriteLine("You keep moving forward, what would you like to do next?\n1: Continue \n2: Shop \n3: Rest");
+                Choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                switch (Choice)
+                {
+                    case 1: //continue
+                        break;
+
+                    case 2: //shop
+                        ShopMethod();
+                        break;
+
+                    case 3: //rest
+                        while (PlayerRemainingHP < PlayerMaxHP)
+                        {
+                            PlayerRemainingHP++;
+                        }
+                        Console.WriteLine("You've restored to full health " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP");
+                        break;
+                }
+
+
+                Console.WriteLine("\n*********************\nYou hear loud stomps in the distance\nYou see a centaur charge towards you\nYou are about to enter a boss fight\n*********************");
+                Console.WriteLine("Your Profile:\nHealth: " + PlayerRemainingHP + "/" + PlayerMaxHP + "\nDamage: " + PlayerDamage + "\nGold: " + Gold + "\n*********************");
+                Console.Write("Proceed?: ");
+                Console.ReadLine();
+                EnemyMaxHP = 75;
+                EnemyRemainingHP = 100;
+                EnemyDamage = 4;
+                EnemyGoldValue = 400;
+                CombatStatus = true;
+                Console.Clear();
+                CombatMethod();
+                CheckPlayerHealth();
+                if (GameOver)
+                {
+                    break;
+                }
+                Console.WriteLine("You win!!! " + Name + " You are the hero that saved the village!!");
+                GameOver = true;
             }
-
-
-            Console.WriteLine("What would you like to do next?\n1: Continue \n2: Shop \n3: Rest");
-            Choice = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
-
-            //Choices to choose after combat
-            switch (Choice)
-            {
-                case 1: //continue
-                    break;
-
-                case 2: //shop
-                    ShopMethod();
-                    break;
-
-                case 3: //rest
-                    Console.WriteLine("Rest");
-                    while (PlayerRemainingHP < PlayerMaxHP)
-                    {
-                        PlayerRemainingHP++;
-                    }
-                    Console.WriteLine("You've restored to full health " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP");
-                    break;
-            }
-
-            //Setting the stats for enemy number 2
-            EnemyMaxHP = 20;
-            EnemyRemainingHP = 20;
-            EnemyDamage = 1;
-            Console.WriteLine("*********************\nYou encounter a walking tree, what would you like to do?\n1: Fight\n2: Run\n3: Hug\n*********************");
-            Choice = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
-            switch (Choice)
-            {
-                case 1:
-                    Console.WriteLine("[]---------You choose to fight---------[]\n------------------");
-                    CombatStatus = true;
-                    EnemyGoldValue = 300;
-                    CombatMethod();
-                    break;
-
-                case 2:
-                    Console.WriteLine("You choose to run away");
-                    break;
-
-                case 3:
-                    Console.WriteLine("You hug the tree, he gives you an apple! +5 Health");
-                    PlayerMaxHP += 5;
-                    PlayerRemainingHP += 5;
-                    break;
-            }
-
-            CheckPlayerHealth();
-            if (GameOver)
-            {
-                break;
-            }
-
-            Console.WriteLine("You find a mysterious chest with a lock, what do you do?\n1. Try to open it\n2. Ignore it\n");
-            Choice = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
-            switch (Choice)
-            {
-                case 1:
-                    Console.Clear();
-                    ChestMethod();
-                    break;
-
-                case 2:
-                    Console.WriteLine("Ignore it");
-                    break;
-            }
-
-            CheckPlayerHealth();
-            if (GameOver)
-            {
-                break;
-            }
-
-            Choice = 0;
-            Console.WriteLine("You keep moving forward, what would you like to do next?\n1: Continue \n2: Shop \n3: Rest");
-            Choice = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
-            switch (Choice)
-            {
-                case 1: //continue
-                    break;
-
-                case 2: //shop
-                    ShopMethod();
-                    break;
-
-                case 3: //rest
-                    while (PlayerRemainingHP < PlayerMaxHP)
-                    {
-                        PlayerRemainingHP++;
-                    }
-                    Console.WriteLine("You've restored to full health " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP");
-                    break;
-            }
-
-            Console.WriteLine("\n*********************\nYou hear loud stomps in the distance\nYou see a centaur charge towards you\nYou are about to enter a boss fight\n*********************");
-            Console.WriteLine("Your Profile:\nHealth: " + PlayerRemainingHP + "/" + PlayerMaxHP + "\nDamage: " + PlayerDamage + "\nGold: " + Gold + "\n*********************");
-            Console.Write("Proceed?: ");
             Console.ReadLine();
-            EnemyMaxHP = 50;
-            EnemyRemainingHP = 50;
-            EnemyDamage = 7;
-            EnemyGoldValue = 400;
-            CombatStatus = true;
             Console.Clear();
-            CombatMethod();
-            CheckPlayerHealth();
-            if (GameOver)
+
+            Console.WriteLine("Would you like to play again?\n1. Yes\n2. No");
+            Choice = 0;
+            Choice = Convert.ToInt32(Console.ReadLine());
+            switch (Choice)
             {
-                break;
+                case 1:
+                    GameOver = false;
+                    break;
+                case 2:
+                    PlayAgain = false;
+                    Console.WriteLine("Thank you for playing");
+                    break;
             }
-            Console.WriteLine("You win!!!");
-            GameOver = true;
         }
-
     }
-
-
 }
 
-class butter
+
+    class butter
 {
     static int blood = 10;
 
