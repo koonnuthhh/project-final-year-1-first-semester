@@ -13,7 +13,7 @@ internal class Program
         string n = null,reenternumber = null;
         while (game) 
         {
-            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (0.5)\n\n==========================================================\n");//title
+            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (0.6)\n\n==========================================================\n");//title
             Console.Write("{0}\nDoraemon enter 1 \n\nGuess number enter 2 (80%)\n\nhangman enter 3 \n\nandrew game enter 4 (Finished)\n\nsi-de? enter 5 (testting)\n\n==========================================================\n\n\nTo exit this program enter 6 : ", reenternumber);//choice
             reenternumber = null;
             n = Console.ReadLine();
@@ -22,7 +22,6 @@ internal class Program
                 case "1":
                     Console.Clear();
                     Doraemongame.Start();
-                    Console.Clear();
                     break;
                 case "2":
                     Console.Clear();
@@ -56,7 +55,7 @@ internal class Program
 }
 class Doraemongame
 {
-    public static void Doraemon()
+    static void Doraemon()
     {
         Console.WriteLine(" \n===================\n \nDORAEMON GAME\n \n===================\n ");
     }
@@ -76,21 +75,23 @@ class Doraemongame
                           "Jack of Clubs", "Queen of Clubs", "King of Clubs" };
         var random = new Random();
 
-        List<string> King = new List<string>();
+        string[] King = new string[4];
 
         int Kingcount = 0;
 
         string play;
+        string playAgain;
 
         do
         {
+            Console.Clear();
             Doraemon();
             Console.WriteLine("\n--Rules--\n1. Player need to pick one card from the deck each card has different command that player need to follow.\n2. IF 4 king appear the game end and the player that the last king pick need to do as the previous king had commanded.\n3. If the player go to toilet that player loss and must do as the king command.\n \n----------");
             Console.Write("\nDO YOU WANT TO PROCEED ? (yes / no) : ");
             play = Console.ReadLine();
             Console.Clear();
 
-            if (play == "yes")
+            if (play == "yes" || play == "y" || play == "Y")
             {
                 for (int i = deck.Length - 1; i > 0; i--)
                 {
@@ -122,87 +123,91 @@ class Doraemongame
 
                         Console.Clear();
                         Doraemon();
-                        Console.WriteLine("\nYour card: " + deck[0] + "\nKing card count : " + King.Count + "\n");
+                        Console.WriteLine("\nYour card: " + deck[0] + "\nKing card count : " + (King.Length - 4) + "\n");
 
                         switch (Fcard)
                         {
                             case "A":
                                 Fcard = "A";
-                                Console.WriteLine("Drink one glass of water !");
+                                Console.WriteLine(" : Drink one glass of water !");
                                 break;
 
                             case "2":
                                 Fcard = "2";
-                                Console.WriteLine("Drink two glass of water !");
+                                Console.WriteLine(" : Drink two glass of water !");
                                 break;
 
                             case "3":
                                 Fcard = "3";
-                                Console.WriteLine("Drink three glass of water !");
+                                Console.WriteLine(" : Drink three glass of water !");
                                 break;
 
                             case "4":
                                 Fcard = "4";
-                                Console.WriteLine("Drink four glass of water !");
+                                Console.WriteLine(">> : Drink four glass of water !");
                                 break;
 
                             case "5":
                                 Fcard = "5";
-                                Console.WriteLine("Pair with a buddy. If you or your buddy get to drink from something, it doesn't matter. Another person must drink too.");
+                                Console.WriteLine(">> : Choose a buddy. If you or your buddy get to drink from something, it doesn't matter. Another person must drink too.");
                                 break;
 
                             case "6":
                                 Fcard = "6";
-                                Console.WriteLine("Play category games, for example the topic is animals and say the names of pigs, dogs, crows, chickens. If anyone can't answer, or if you respond late, you will have to drink 1 glass");
+                                Console.WriteLine(">> : Play category games, for example the topic is animals and say the names of pigs, dogs, crows, chickens. If anyone can't answer, or if you respond late, you will have to drink 1 glass");
                                 break;
 
                             case "7":
                                 Fcard = "7";
-                                Console.WriteLine("Play the number 7 game by saying the numbers in order and skipping numbers that end in 7 or are divisible by 7 (such as 7 14 17 21 27 28). Anyone who makes a mistake gets 1 glass.");
+                                Console.WriteLine(">> : Play the number 7 game by saying the numbers in order and skipping numbers that end in 7 or are divisible by 7 (such as 7 14 17 21 27 28). Anyone who makes a mistake gets 1 glass.");
                                 break;
 
                             case "8":
                                 Fcard = "8";
-                                Console.WriteLine("You can go to the toilet. You can use it yourself or give it to a friend to go to the toilet.");
+                                Console.WriteLine(">> : You can go to the toilet. You can use it yourself or give it to a friend to go to the toilet.");
                                 break;
 
                             case "9":
                                 Fcard = "9";
-                                Console.WriteLine("Person on the left drink 1 glass");
+                                Console.WriteLine(">> : Person on the left drink 1 glass");
                                 break;
 
                             case "1":
                                 Fcard = "1";
-                                Console.WriteLine("Person on the right drink 1 glass");
+                                Console.WriteLine(">> : Person on the right drink 1 glass");
                                 break;
 
                             case "J":
                                 Fcard = "J";
-                                Console.WriteLine("The person who gets this card must do something.The last person in the circle to do the same gets 1 drink.");
+                                Console.WriteLine(">> : The person who gets this card must do something.The last person in the circle to do the same gets 1 drink.");
                                 break;
 
                             case "Q":
                                 Fcard = "Q";
-                                Console.WriteLine("Do not speak to the person who received this card. If you speak, you get 1 drink.");
+                                Console.WriteLine(">> : Do not speak to the person who received this card. If you speak, you get 1 drink.");
                                 break;
 
                             case "K":
                                 Fcard = "K";
-                                Console.WriteLine("The King's command : Action, Place, Duration, Who");
+
+                                Console.WriteLine("\n======= ! ! T H E   K I N G   H A S   A P P E A R ! ! ======\n");
+                                Console.WriteLine("The King's command : Action, Place, Duration, Name\n");
                                 if (card == "King of Spades")
                                 {
                                     Console.Write("Enter action : ");
                                     Kingcount++;
                                     act = Console.ReadLine();
-                                    King.Add(act);
+                                    Array.Resize(ref King, King.Length + 1);
+                                    King[1] = act;
                                     if (Kingcount == 4)
                                     {
                                         Console.Clear();
                                         Doraemon();
-                                        foreach (string command in King)
-                                        {
-                                            Console.WriteLine(command + "\n____________________");
-                                        }
+                                        Console.WriteLine(King[0] + " must " + King[1] + " in " + King[2] + " for " + King[3] + "\n====================");
+                                        Console.Write("\n\n\n>> : Press any key to return : ");
+                                        playAgain = Console.ReadLine();
+                                        break;
+
                                     }
                                 }
                                 else if (card == "King of Hearts")
@@ -210,15 +215,17 @@ class Doraemongame
                                     Console.Write("Enter place : ");
                                     Kingcount++;
                                     place = Console.ReadLine();
-                                    King.Add(place);
+                                    Array.Resize(ref King, King.Length + 1);
+                                    King[2] = place;
                                     if (Kingcount == 4)
                                     {
                                         Console.Clear();
                                         Doraemon();
-                                        foreach (string command in King)
-                                        {
-                                            Console.WriteLine(command + "\n____________________");
-                                        }
+                                        Console.WriteLine(King[0] + " must " + King[1] + " in " + King[2] + " for " + King[3] + "\n====================");
+                                        Console.Write("\n\n\n>> : Press any key to return : ");
+                                        playAgain = Console.ReadLine();
+                                        break;
+
                                     }
                                 }
                                 else if (card == "King of Diamonds")
@@ -226,15 +233,17 @@ class Doraemongame
                                     Console.Write("Enter duration : ");
                                     Kingcount++;
                                     time = Console.ReadLine();
-                                    King.Add(time);
+                                    Array.Resize(ref King, King.Length + 1);
+                                    King[3] = time;
                                     if (Kingcount == 4)
                                     {
                                         Console.Clear();
                                         Doraemon();
-                                        foreach (string command in King)
-                                        {
-                                            Console.WriteLine(command + "\n____________________");
-                                        }
+                                        Console.WriteLine(King[0] + " must " + King[1] + " in " + King[2] + " for " + King[3] + "\n====================");
+                                        Console.Write("\n\n\n>> : Press any key to return : ");
+                                        playAgain = Console.ReadLine();
+                                        break;
+
                                     }
                                 }
                                 else
@@ -242,47 +251,48 @@ class Doraemongame
                                     Console.Write("Enter Name : ");
                                     Kingcount++;
                                     name = Console.ReadLine();
-                                    King.Add(name);
+                                    Array.Resize(ref King, King.Length + 1);
+                                    King[0] = name;
                                     if (Kingcount == 4)
                                     {
                                         Console.Clear();
                                         Doraemon();
-                                        foreach (string command in King)
-                                        {
-                                            Console.WriteLine(command + "\n____________________");
-                                        }
+
+                                        Console.WriteLine(King[0] + " must " + King[1] + " in " + King[2] + " for " + King[3] + "\n====================");
+                                        Console.Write("\n\n\n>> : Press any key to return : ");
+                                        playAgain = Console.ReadLine();
+                                        break;
+
                                     }
                                 }
                                 break;
                         }
-
-                        deck = deck.Skip(1).ToArray();
-
+                        deck = deck.Skip(1).ToArray();                       
                     }
                     else if (pick == "2")
                     {
                         Console.Clear();
-                        Console.WriteLine("\n\n\n=================== YOU LOSS ===================\nlet your friend decid what to punish the loser\n\n\n ");
+                        Doraemon();
+                        Console.WriteLine("\n=================== YOU LOSS ===================\nlet your friend decide what to punish the loser\n\n\n ");
+                        Console.Write(">> : Press any key to return : ");
+                        playAgain = Console.ReadLine();
                         break;
-                    }
 
+                    }
                     else
                     {
                         Console.Clear();
                         Doraemon();
                         Console.WriteLine("\nINVALID VALUE : Try Again\n");
                     }
-
                 } while (Kingcount < 4);
-
-                break;
-
             }
-            else if (play == "no")
+            else if (play == "no" || play == "n" || play == "N")
             {
-                Console.WriteLine("\n\n\n===== GOOD BYE =====\n\n\n");
+                Doraemon();
+                Console.WriteLine("\n===== GOOD BYE =====\n\n\n");
             }
-        } while (play != "no");
+        } while (play != "no" && play != "n" && play != "N");
     }
 }
 class guessnumbergame
@@ -805,7 +815,7 @@ class andrew
                         break;
                 }
 
-                CheckPlayerHealth();
+                //CheckPlayerHealth();
                 if (GameOver)
                 {
                     break;
@@ -874,6 +884,12 @@ class andrew
                         Console.WriteLine("You choose to run away");
                         break;
                 }
+                CheckPlayerHealth();
+                if (GameOver)
+                {
+                    break;
+                }
+               
 
                 Choice = 0;
                 Console.WriteLine("You keep moving forward, what would you like to do next?\n1: Continue \n2: Shop \n3: Rest");
@@ -936,9 +952,7 @@ class andrew
         }
     }
 }
-
-
-    class butter
+class butter
 {
     static int blood = 10;
 
