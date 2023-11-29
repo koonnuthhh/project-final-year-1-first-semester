@@ -1,5 +1,6 @@
-﻿
+﻿using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
@@ -10,10 +11,10 @@ internal class Program
     public static void Main()
     {
         bool game = true;
-        string n = null,reenternumber = null;
-        while (game) 
+        string n = null, reenternumber = null;
+        while (game)
         {
-            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (0.7)\n\n==========================================================\n");//title
+            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (1.0)\n\n==========================================================\n");//title
             Console.Write("{0}\nDoraemon enter 1 \n\nGuess number enter 2 \n\nhangman enter 3 \n\nandrew game enter 4 \n\nsi-de? enter 5\n\n==========================================================\n\n\nTo exit this program enter 6 : ", reenternumber);//choice
             reenternumber = null;
             n = Console.ReadLine();
@@ -267,7 +268,7 @@ class Doraemongame
                                 }
                                 break;
                         }
-                        deck = deck.Skip(1).ToArray();                       
+                        deck = deck.Skip(1).ToArray();
                     }
                     else if (pick == "2")
                     {
@@ -303,7 +304,7 @@ class guessnumbergame
         int round = 1, playercount, maxnumber;
         //Introduce program let user design maximum , how many round they want and how many players
         Console.WriteLine("==========================================================\nThis is program guess random integer number\nIf insert 0 or 1 a number the maximum will set to 1000\n==========================================================");
-    howmanyplayer: 
+    howmanyplayer:
         Console.Write("How many player(Enter only integer): ");
         if (int.TryParse(Console.ReadLine(), out playercount) == false)
         {
@@ -767,6 +768,10 @@ class andrew
                     case 2:
                         Console.WriteLine("You choose to run away");
                         break;
+
+                    default:
+                        Console.WriteLine("Please select a valid option.");
+                        continue;
                 }
 
 
@@ -792,6 +797,9 @@ class andrew
                         }
                         Console.WriteLine("You've restored to full health " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP");
                         break;
+                    default:
+                        Console.WriteLine("Please select a valid option");
+                        continue;
                 }
 
                 //Setting the stats for enemy number 2
@@ -819,6 +827,9 @@ class andrew
                         PlayerMaxHP += 5;
                         PlayerRemainingHP += 5;
                         break;
+                    default:
+                        Console.WriteLine("Please select a valid option");
+                        continue;
                 }
 
                 //CheckPlayerHealth();
@@ -840,6 +851,10 @@ class andrew
                     case 2:
                         Console.WriteLine("Ignore it");
                         break;
+
+                    default:
+                        Console.WriteLine("Please select a valid option");
+                        continue;
                 }
 
                 CheckPlayerHealth();
@@ -868,6 +883,10 @@ class andrew
                         }
                         Console.WriteLine("You've restored to full health " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP");
                         break;
+
+                    default:
+                        Console.WriteLine("Please select a valid option");
+                        continue;
                 }
 
                 //Setting the stats for enemy number 3
@@ -889,13 +908,17 @@ class andrew
                     case 2:
                         Console.WriteLine("You choose to run away");
                         break;
+
+                    default:
+                        Console.WriteLine("Please select a valid option");
+                        continue;
                 }
                 CheckPlayerHealth();
                 if (GameOver)
                 {
                     break;
                 }
-               
+
 
                 Choice = 0;
                 Console.WriteLine("You keep moving forward, what would you like to do next?\n1: Continue \n2: Shop \n3: Rest");
@@ -917,6 +940,10 @@ class andrew
                         }
                         Console.WriteLine("You've restored to full health " + PlayerRemainingHP + "/" + PlayerMaxHP + "HP");
                         break;
+
+                    default:
+                        Console.WriteLine("Please select a valid option");
+                        continue;
                 }
 
 
@@ -954,6 +981,9 @@ class andrew
                     PlayAgain = false;
                     Console.WriteLine("Thank you for playing");
                     break;
+                default:
+                    Console.WriteLine("Please select a valid option either 1. to play again or 2. to return to menu");
+                    continue;
             }
         }
     }
@@ -1390,4 +1420,3 @@ class butter
     endbutter:;
     }
 }
-
