@@ -13,8 +13,8 @@ internal class Program
         string n = null,reenternumber = null;
         while (game) 
         {
-            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (0.6)\n\n==========================================================\n");//title
-            Console.Write("{0}\nDoraemon enter 1 \n\nGuess number enter 2 (80%)\n\nhangman enter 3 \n\nandrew game enter 4 (Finished)\n\nsi-de? enter 5 (testting)\n\n==========================================================\n\n\nTo exit this program enter 6 : ", reenternumber);//choice
+            Console.Write("==========================================================\n\n            Welcome to ULTIMATE OMEGA BUTTER!!\n                          (0.7)\n\n==========================================================\n");//title
+            Console.Write("{0}\nDoraemon enter 1 \n\nGuess number enter 2 \n\nhangman enter 3 \n\nandrew game enter 4 \n\nsi-de? enter 5\n\n==========================================================\n\n\nTo exit this program enter 6 : ", reenternumber);//choice
             reenternumber = null;
             n = Console.ReadLine();
             switch (n)
@@ -396,19 +396,25 @@ class guessnumbergame
             switch (number - guess)
             {
                 //case when guess less than random number
-                case <= -20:
+                case <= -10:
                     Console.WriteLine("less than {0}", guess);
                     break;
+                case <= -5:
+                    Console.WriteLine("a little less!", guess);
+                    break;
                 case < 0:
-                    Console.WriteLine("a little less!!");
+                    Console.WriteLine("a little little less!!");
                     break;
                 case 0:
                     Console.WriteLine("you right!!");
                     break;
 
                 //case when guess more than random number
-                case <= 20:
-                    Console.WriteLine("a little more!!", guess);
+                case <= 5:
+                    Console.WriteLine("a little little more!!", guess);
+                    break;
+                case <= 10:
+                    Console.WriteLine("a little more!", guess);
                     break;
                 default:
                     Console.WriteLine("more than {0}", guess);
@@ -1119,6 +1125,7 @@ class butter
         cop();
         Console.Write("You will :");
         int right;
+        //if else
         if ((int.TryParse(Console.ReadLine(), out right) == false))
         {
             Console.Clear();
