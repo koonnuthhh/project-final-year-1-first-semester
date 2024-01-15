@@ -8,7 +8,7 @@ using System.Text;
 
 internal class Program
 {
-    public static void Main()
+    public static void Main() //happy is gay
     {
         bool game = true;
         string n = null, reenternumber = null;
@@ -434,7 +434,7 @@ class hangman
         while (again)
         {
             Console.WriteLine("---------Welcome to Hangman!---------");
-            string[] secretWord = { "programming", "banana", "koonnuthhh" }; // The word to guess
+            string[] secretWord = { "programming", "banana", "ultimateomegabutter" }; // The word to guess
             Console.Write("\nHow many player ? <int only> : ");
             string player = Console.ReadLine();
 
